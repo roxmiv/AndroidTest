@@ -1,33 +1,51 @@
 package ru.reshuege.someactivites;
 
-import android.support.v7.app.ActionBarActivity;
+import android.app.ListActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TextView;
+import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
+import android.widget.Toast;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 
-public class main2 extends ActionBarActivity {
+
+public class main2 extends ListActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main2);
         setTitle(R.string.math_button_text);
         try {
             JSONObject object = new JSONObject(getIntent().getStringExtra("EXTRA_SUBJECT"));
-            TextView subjectView = (TextView) findViewById(R.id.textView1);
-            subjectView.setText(object.toString());
+
+            JSONArray jsonArray = object.names();
+            ArrayList<String> list = new ArrayList<String>();
+            if (jsonArray != null) {
+                int len = jsonArray.length();
+                for (int i=0;i<len;i++){
+                    list.add(jsonArray.get(i).toString());
+                }
+            }
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+                    R.layout.activity_main2, R.id.label, list);
+            setListAdapter(adapter);
         }
         catch (JSONException e) {
-
         }
-
     }
 
+    @Override
+    protected void onListItemClick(ListView l, View v, int position, long id) {
+        String item = (String) getListAdapter().getItem(position);
+        Toast.makeText(this, item + " выбран", Toast.LENGTH_LONG).show();
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

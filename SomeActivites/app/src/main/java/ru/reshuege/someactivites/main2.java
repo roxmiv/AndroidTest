@@ -1,11 +1,13 @@
 package ru.reshuege.someactivites;
 
+import android.app.Activity;
 import android.app.ListActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.ExpandableListView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -14,37 +16,45 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 
-public class main2 extends ListActivity {
+public class main2 extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setTitle(R.string.math_button_text);
+        setContentView(R.layout.activity_main2);
         try {
             JSONObject object = new JSONObject(getIntent().getStringExtra("EXTRA_SUBJECT"));
 
             JSONArray jsonArray = object.names();
-            ArrayList<String> list = new ArrayList<String>();
+            List<String> listDataHeader = new ArrayList<String>();
+            HashMap<String, List<String>> listDataChild = new HashMap<String, List<String>>();
             if (jsonArray != null) {
                 int len = jsonArray.length();
                 for (int i=0;i<len;i++){
-                    list.add(jsonArray.get(i).toString());
+                    String subject = jsonArray.get(i).toString();
+                    listDataHeader.add(subject);
+                    JSONArray childArray = object.getJSONObject(subject).names();
+                    if (childArray != null){
+                        int childLen = childArray.length();
+                        ArrayList<String> childrens = new ArrayList<String>();
+                        for (int j=0; j< childLen; j++) {
+                            childrens.add(childArray.get(j).toString());
+                        }
+                        listDataChild.put(listDataHeader.get(i), childrens);
+                    }
                 }
             }
-            ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                    R.layout.activity_main2, R.id.label, list);
-            setListAdapter(adapter);
+            ExpandableListAdapter listAdapter = new ExpandableListAdapter(this, listDataHeader, listDataChild);
+
+            ((ExpandableListView)findViewById(R.id.lvExp)).setAdapter(listAdapter);
         }
         catch (JSONException e) {
         }
-    }
-
-    @Override
-    protected void onListItemClick(ListView l, View v, int position, long id) {
-        String item = (String) getListAdapter().getItem(position);
-        Toast.makeText(this, item + " выбран", Toast.LENGTH_LONG).show();
     }
 
     @Override

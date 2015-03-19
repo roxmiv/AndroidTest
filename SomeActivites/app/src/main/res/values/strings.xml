@@ -3,10 +3,10 @@
 
     <string name="math_button_text">Математика (Профильный уровень)</string>
     <string name="math_prefix">math</string>
-
     <string name="app_name">Test</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_main2">main2</string>
+    <string name="title_activity_main3">main3</string>
 
 </resources>

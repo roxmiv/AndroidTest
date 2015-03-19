@@ -31,7 +31,7 @@ public class main extends ActionBarActivity {
             @Override
             public void onClick(View arg0) {
                 Intent intent = new Intent(context, main2.class);
-                new Json(main.this, intent).execute("http://math.reshuege.ru/api?type=get_themes");
+                new JsonWithNewIntent(main.this, intent).execute("http://math.reshuege.ru/api?type=get_themes");
             }
         });
     }

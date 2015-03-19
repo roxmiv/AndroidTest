@@ -2,6 +2,7 @@ package ru.reshuege.someactivites;
 
 import android.app.Activity;
 import android.app.ListActivity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -28,11 +29,11 @@ public class main2 extends Activity {
         setTitle(R.string.math_button_text);
         setContentView(R.layout.activity_main2);
         try {
-            JSONObject object = new JSONObject(getIntent().getStringExtra("EXTRA_SUBJECT"));
+            final JSONObject object = (new JSONObject(getIntent().getStringExtra("EXTRA_DATA"))).getJSONObject("data");
 
             JSONArray jsonArray = object.names();
-            List<String> listDataHeader = new ArrayList<String>();
-            HashMap<String, List<String>> listDataChild = new HashMap<String, List<String>>();
+            final List<String> listDataHeader = new ArrayList<String>();
+            final HashMap<String, List<String>> listDataChild = new HashMap<String, List<String>>();
             if (jsonArray != null) {
                 int len = jsonArray.length();
                 for (int i=0;i<len;i++){
@@ -50,8 +51,29 @@ public class main2 extends Activity {
                 }
             }
             ExpandableListAdapter listAdapter = new ExpandableListAdapter(this, listDataHeader, listDataChild);
+            ExpandableListView themeList = (ExpandableListView)findViewById(R.id.lvExp);
+            themeList.setAdapter(listAdapter);
 
-            ((ExpandableListView)findViewById(R.id.lvExp)).setAdapter(listAdapter);
+            themeList.setOnChildClickListener(new ExpandableListView.OnChildClickListener() {
+                @Override
+                public boolean onChildClick(ExpandableListView parent, View v,
+                                            int groupPosition, int childPosition, long id) {
+                    try {
+                        String themeId = object.getJSONObject(listDataHeader.get(groupPosition))
+                                .getString(listDataChild.get(listDataHeader.get(groupPosition)).get(childPosition));
+
+                        Intent intent = new Intent(getApplicationContext(), main3.class);
+                        new JsonWithNewIntent(main2.this, intent).execute("http://math.reshuege.ru/api?type=get_theme_tasks&data=" + themeId);
+                    }
+                    catch (Exception e) {
+                        Toast.makeText(
+                                getApplicationContext(),
+                                "Ошибка", Toast.LENGTH_SHORT)
+                                .show();
+                    }
+                    return false;
+                }
+            });
         }
         catch (JSONException e) {
         }

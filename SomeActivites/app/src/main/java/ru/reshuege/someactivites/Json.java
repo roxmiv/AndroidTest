@@ -24,7 +24,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 
-class Json extends AsyncTask<String, Void, JSONObject> {
+class Json extends AsyncTask<String, Integer, JSONObject> {
 
     ProgressDialog m_progressDialog;
     Activity m_activity;
@@ -117,18 +117,19 @@ class JsonWithNewIntent extends Json {
 }
 
 class JsonForTask extends Json {
-    TextView m_webView;
+    String[] m_taskNumbers;
+    TextView[] m_webView;
     Spanned[] m_mas = new Spanned[1];
 
-    public JsonForTask (Activity activity, TextView webView)
+    public JsonForTask (Activity activity, String[] taskNumbers, TextView[] webView)
     {
         super(activity);
+        m_taskNumbers = taskNumbers;
         m_webView = webView;
     }
 
     @Override
     protected JSONObject doInBackground(String... urls) {
-        JSONObject result = getJson(urls[0]);
         Html.ImageGetter imgGetter = new Html.ImageGetter() {
             public Drawable getDrawable(String source) {
                 Drawable drawable = null ;
@@ -145,24 +146,31 @@ class JsonForTask extends Json {
                 return drawable;
             }
         };
-        try {
-            m_mas[0] = Html.fromHtml("<html><body>" + result.getJSONObject("data").getString("body") + "</body></html>", imgGetter, null);
+        int taskNumber = m_taskNumbers.length;
+        for (int i = 0; i < taskNumber; i++) {
+            JSONObject result = getJson("http://math.reshuege.ru/api?type=get_task&data=" + m_taskNumbers[i]);
+            try {
+                if (result != null)
+                    m_mas[0] = Html.fromHtml("<html><body>" + result.getJSONObject("data").getString("body") + "</body></html>", imgGetter, null);
+                else
+                    m_mas[0] = Html.fromHtml("<html><body>Ошибка</body></html>");
+            } catch (JSONException e) {
+                m_mas[0] = Html.fromHtml("<html><body>Ошибка</body></html>");
+            }
+            publishProgress(i);
         }
-        catch (JSONException e) {
-            return null;
-        }
-        return result;
+        return new JSONObject();
+    }
+
+    @Override
+    protected void onProgressUpdate(Integer... values) {
+        super.onProgressUpdate(values);
+        Log.d("mylog", "Put text");
+        m_webView[values[0]].setText(m_mas[0]);
     }
 
     @Override
     protected void onPostExecute(JSONObject result) {
-
-        if (result != null) {
-            m_webView.setText(m_mas[0]);
-        }
-        else {
-            m_webView.setText("Ошибка");
-        }
         super.onPostExecute(result);
     }
 }

@@ -10,6 +10,7 @@ import android.text.Spanned;
 import android.util.Log;
 import android.webkit.WebView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
@@ -26,30 +27,24 @@ import java.net.URL;
 
 class Json extends AsyncTask<String, Integer, JSONObject> {
 
-    ProgressDialog m_progressDialog;
     Activity m_activity;
+    String m_prefix;
 
-    public Json (Activity activity)
+    public Json (Activity activity, String prefix)
     {
         super();
         m_activity = activity;
-    }
-
-    @Override
-    protected void onPreExecute() {
-        super.onPreExecute();
-        //m_progressDialog = ProgressDialog.show(m_activity, "Подождите", "Загрузка...");
+        m_prefix = "http://" + prefix + '.';
     }
 
     @Override
     protected void onPostExecute(JSONObject result) {
-        //m_progressDialog.dismiss();
         super.onPostExecute(result);
     }
 
     @Override
     protected JSONObject doInBackground(String... urls) {
-        return getJson(urls[0]);
+        return getJson(m_prefix + urls[0]);
     }
 
     public static JSONObject getJson(String url){
@@ -99,18 +94,30 @@ class Json extends AsyncTask<String, Integer, JSONObject> {
 
 class JsonWithNewIntent extends Json {
     Intent m_intent;
+    ProgressDialog m_progressDialog;
 
-    public JsonWithNewIntent (Activity activity, Intent intent)
+    public JsonWithNewIntent (Activity activity, String prefix, Intent intent)
     {
-        super(activity);
+        super(activity, prefix);
         m_intent = intent;
     }
 
     @Override
+    protected void onPreExecute() {
+        super.onPreExecute();
+        m_progressDialog = ProgressDialog.show(m_activity, "Подождите", "Загрузка...");
+    }
+
+    @Override
     protected void onPostExecute(JSONObject result) {
+        m_progressDialog.dismiss();
         if (result != null) {
             m_intent.putExtra("EXTRA_DATA", result.toString());
             m_activity.startActivity(m_intent);
+        }
+        else
+        {
+            Toast.makeText(m_activity, "Ошибка. Проверьте соединение.", Toast.LENGTH_LONG).show();
         }
         super.onPostExecute(result);
     }
@@ -121,9 +128,9 @@ class JsonForTask extends Json {
     TextView[] m_webView;
     Spanned[] m_mas = new Spanned[1];
 
-    public JsonForTask (Activity activity, String[] taskNumbers, TextView[] webView)
+    public JsonForTask (Activity activity, String prefix, String[] taskNumbers, TextView[] webView)
     {
-        super(activity);
+        super(activity, prefix);
         m_taskNumbers = taskNumbers;
         m_webView = webView;
     }

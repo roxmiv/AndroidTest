@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <FrameLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="0dip"
+        android:layout_weight="33"
+        android:orientation="vertical" >
+        <LinearLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="horizontal" >
+            <EditText
+                android:id="@+id/menu_task_edit"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="80"
+                android:padding="5dp"
+                android:numeric="integer"
+                android:layout_gravity="center"
+                android:hint="@string/menu_task_search_hint"
+                />
+            <Button
+                android:id="@+id/menu_task_search"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="20"
+                android:padding="5dp"
+                android:text="@string/menu_search_button"
+                android:layout_gravity="center"
+                />
+        </LinearLayout>
+        <Button
+            android:id="@+id/menu_task_button"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:background="@drawable/gradient"
+            android:text="@string/menu_task_button"/>
+    </FrameLayout>
+
+    <FrameLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="0dip"
+        android:layout_weight="33"
+        android:orientation="vertical" >
+        <LinearLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="horizontal" >
+            <EditText
+                android:id="@+id/menu_variant_edit"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="80"
+                android:padding="5dp"
+                android:numeric="integer"
+                android:layout_gravity="center"
+                android:hint="@string/menu_variant_search_hint"
+                />
+            <Button
+                android:id="@+id/menu_variant_search"
+                android:layout_width="0dip"
+                android:layout_height="wrap_content"
+                android:layout_weight="20"
+                android:padding="5dp"
+                android:text="@string/menu_search_button"
+                android:layout_gravity="center"
+                />
+        </LinearLayout>
+        <Button
+            android:id="@+id/menu_variant_button"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:background="@drawable/gradient"
+            android:text="@string/menu_variant_button"/>
+    </FrameLayout>
+
+    <FrameLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="0dip"
+        android:layout_weight="33"
+        android:orientation="vertical" >
+        <Button
+            android:id="@+id/menu_themes_button"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:background="@drawable/gradient"
+            android:text="@string/menu_themes_button"/>
+    </FrameLayout>
+
+</LinearLayout>

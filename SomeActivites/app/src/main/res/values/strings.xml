@@ -1,12 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <string name="app_name">РешуЕгэ</string>
+
+    <string name="subject_select_title">Выберите предмет</string>
     <string name="math_button_text">Математика (Профильный уровень)</string>
     <string name="math_prefix">math</string>
-    <string name="app_name">Test</string>
-    <string name="hello_world">Hello world!</string>
+    <string name="mathb_button_text">Математика (Базовый уровень)</string>
+    <string name="mathb_prefix">mathb</string>
+    <string name="inf_button_text">Информатика</string>
+    <string name="inf_prefix">inf</string>
+    <string name="rus_button_text">Русский язык</string>
+    <string name="rus_prefix">rus</string>
+    <string name="en_button_text">Английский язык</string>
+    <string name="en_prefix">en</string>
+    <string name="de_button_text">Немецкий язык</string>
+    <string name="de_prefix">de</string>
+    <string name="fr_button_text">Французский язык</string>
+    <string name="fr_prefix">fr</string>
+    <string name="sp_button_text">Испанский язык</string>
+    <string name="sp_prefix">sp</string>
+    <string name="phys_button_text">Физика</string>
+    <string name="phys_prefix">phys</string>
+    <string name="chem_button_text">Химия</string>
+    <string name="chem_prefix">chem</string>
+    <string name="bio_button_text">Биология</string>
+    <string name="bio_prefix">bio</string>
+    <string name="geo_button_text">География</string>
+    <string name="geo_prefix">geo</string>
+    <string name="soc_button_text">Обществознание</string>
+    <string name="soc_prefix">soc</string>
+    <string name="lit_button_text">Литература</string>
+    <string name="lit_prefix">lit</string>
+    <string name="hist_button_text">История</string>
+    <string name="hist_prefix">hist</string>
+
+    <string name="menu_task_button">Поиск задания по номеру</string>
+    <string name="menu_variant_button">Поиск варианта по номеру</string>
+    <string name="menu_themes_button">Список заданий</string>
+    <string name="menu_search_button">Найти</string>
+    <string name="menu_task_search_hint">Введите номер задания</string>
+    <string name="menu_variant_search_hint">Введите номер варианта</string>
+
     <string name="action_settings">Settings</string>
-    <string name="title_activity_main2">main2</string>
-    <string name="title_activity_main3">main3</string>
+    <string name="title_activity_subjects">main2</string>
+    <string name="title_activity_variant">main3</string>
+    <string name="title_activity_main_menu">MainMenuActivity</string>
 
 </resources>

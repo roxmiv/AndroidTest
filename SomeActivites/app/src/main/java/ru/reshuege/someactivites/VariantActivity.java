@@ -2,18 +2,11 @@ package ru.reshuege.someactivites;
 
 import android.app.ListActivity;
 import android.content.Context;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.text.Spanned;
-import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebView;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -22,12 +15,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 
-public class main3 extends ListActivity {
+public class VariantActivity extends ListActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_main3);
+        //setContentView(R.layout.variant_activity);
         setTitle(R.string.math_button_text);
         try {
             JSONArray object = (new JSONObject(getIntent().getStringExtra("EXTRA_DATA"))).getJSONArray("data");
@@ -38,10 +31,10 @@ public class main3 extends ListActivity {
             }
             TextView[] viewMas = new TextView[len];
             for (int i = 0; i < len; i++) {
-                viewMas[i] = new TextView(main3.this);
+                viewMas[i] = new TextView(VariantActivity.this);
                 viewMas[i].setText("Загрузка...");
             }
-            new JsonForTask(main3.this, values, viewMas).execute("");
+            new JsonForTask(VariantActivity.this, "math", values, viewMas).execute("");
             setListAdapter(new TasksAdapter(this, viewMas));
         }
         catch (JSONException e) {
@@ -53,7 +46,7 @@ public class main3 extends ListActivity {
         private final TextView[] values;
 
         public TasksAdapter(Context context, TextView[] values) {
-            super(context, R.layout.activity_main3, values);
+            super(context, R.layout.variant_activity, values);
             this.context = context;
             this.values = values;
         }
@@ -70,7 +63,7 @@ public class main3 extends ListActivity {
             if (rowView == null) {
                 LayoutInflater inflater = (LayoutInflater) context
                         .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-                rowView = (LinearLayout) inflater.inflate(R.layout.activity_main3, null, true);
+                rowView = (LinearLayout) inflater.inflate(R.layout.variant_activity, null, true);
                 rowView.addView(values[position]);
                 holder = new ViewHolder();
                 holder.textView = values[position];//(TextView) rowView.findViewById(R.id.task);

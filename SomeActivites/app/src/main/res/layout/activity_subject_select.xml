@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    >
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/linearLayout1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <Button
+            android:id="@+id/buttonMath"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/gradient"
+            android:text="@string/math_button_text" />
+        <Button
+            android:id="@+id/buttonMathb"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/gradient"
+            android:text="@string/mathb_button_text" />
+        <Button
+            android:id="@+id/buttonInf"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/gradient"
+            android:text="@string/inf_button_text" />
+        <Button
+            android:id="@+id/buttonRus"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/gradient"
+            android:text="@string/rus_button_text" />
+        <Button
+            android:id="@+id/buttonEn"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/gradient"
+            android:text="@string/en_button_text" />
+        <Button
+            android:id="@+id/buttonDe"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/gradient"
+            android:text="@string/de_button_text" />
+        <Button
+            android:id="@+id/buttonFr"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/gradient"
+            android:text="@string/fr_button_text" />
+        <Button
+            android:id="@+id/buttonSp"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/gradient"
+            android:text="@string/sp_button_text" />
+        <Button
+            android:id="@+id/buttonPhys"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/gradient"
+            android:text="@string/phys_button_text" />
+        <Button
+            android:id="@+id/buttonChem"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/gradient"
+            android:text="@string/chem_button_text" />
+        <Button
+            android:id="@+id/buttonBio"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/gradient"
+            android:text="@string/bio_button_text" />
+        <Button
+            android:id="@+id/buttonGeo"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/gradient"
+            android:text="@string/geo_button_text" />
+        <Button
+            android:id="@+id/buttonSoc"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/gradient"
+            android:text="@string/soc_button_text" />
+        <Button
+            android:id="@+id/buttonLit"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/gradient"
+            android:text="@string/lit_button_text" />
+        <Button
+            android:id="@+id/buttonHist"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/gradient"
+            android:text="@string/hist_button_text" />
+
+    </LinearLayout>
+</ScrollView>

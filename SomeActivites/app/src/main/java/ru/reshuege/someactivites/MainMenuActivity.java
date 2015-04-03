@@ -90,7 +90,7 @@ public class MainMenuActivity extends ActionBarActivity {
         m_subjectButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View arg0) {
-                Intent intent = new Intent(context, SubjectsActivity.class);
+                Intent intent = new Intent(context, ThemesActivity.class);
                 new JsonWithNewIntent(MainMenuActivity.this, m_prefix, intent).execute("reshuege.ru/api?type=get_themes");
             }
         });

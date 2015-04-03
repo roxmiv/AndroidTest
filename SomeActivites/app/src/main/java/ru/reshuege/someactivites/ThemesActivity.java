@@ -1,8 +1,11 @@
 package ru.reshuege.someactivites;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,13 +21,17 @@ import java.util.HashMap;
 import java.util.List;
 
 
-public class SubjectsActivity extends Activity {
+public class ThemesActivity extends ActionBarActivity {
+
+    String m_prefix;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setTitle(R.string.math_button_text);
-        setContentView(R.layout.activity_subjects);
+        m_prefix = getIntent().getStringExtra("PREFIX");
+        Context context = this;
+        setTitle(context.getResources().getIdentifier(m_prefix + "_button_text", "string", context.getPackageName()));
+        setContentView(R.layout.activity_themes);
         try {
             final JSONObject object = (new JSONObject(getIntent().getStringExtra("EXTRA_DATA"))).getJSONObject("data");
 
@@ -60,7 +67,7 @@ public class SubjectsActivity extends Activity {
                                 .getString(listDataChild.get(listDataHeader.get(groupPosition)).get(childPosition));
 
                         Intent intent = new Intent(getApplicationContext(), VariantActivity.class);
-                        new JsonWithNewIntent(SubjectsActivity.this, "math", intent).execute("http://math.reshuege.ru/api?type=get_theme_tasks&data=" + themeId);
+                        new JsonWithNewIntent(ThemesActivity.this, m_prefix, intent).execute("reshuege.ru/api?type=get_theme_tasks&data=" + themeId);
                     }
                     catch (Exception e) {
                         Toast.makeText(

@@ -35,7 +35,7 @@ public class SubjectSelectActivity extends ActionBarActivity {
             public void onClick(View arg0) {
                 goToMenu(getString(R.string.math_prefix));
                 /*
-                Intent intent = new Intent(context, SubjectsActivity.class);
+                Intent intent = new Intent(context, ThemesActivity.class);
                 new JsonWithNewIntent(SubjectSelectActivity.this, getString(R.string.math_prefix), intent).execute("reshuege.ru/api?type=get_themes");
                 */
             }

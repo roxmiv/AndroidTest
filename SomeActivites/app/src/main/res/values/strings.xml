@@ -43,7 +43,7 @@
     <string name="menu_variant_search_hint">Введите номер варианта</string>
 
     <string name="action_settings">Settings</string>
-    <string name="title_activity_subjects">main2</string>
+    <string name="title_activity_themes">main2</string>
     <string name="title_activity_variant">main3</string>
     <string name="title_activity_main_menu">MainMenuActivity</string>
 

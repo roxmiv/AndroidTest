@@ -18,8 +18,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".SubjectsActivity"
-            android:label="@string/title_activity_subjects" >
+            android:name=".ThemesActivity"
+            android:label="@string/title_activity_themes" >
         </activity>
         <activity
             android:name=".VariantActivity"

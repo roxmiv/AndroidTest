@@ -2,14 +2,17 @@ package ru.reshuege.someactivites;
 
 import android.content.Context;
 import android.graphics.Typeface;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 import java.util.HashMap;
 import java.util.List;
+
 
 public class ExpandableListAdapter extends BaseExpandableListAdapter {
     private Context m_context;
@@ -48,6 +51,8 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
 
         TextView txtListChild = (TextView) convertView
                 .findViewById(R.id.SubListItem);
+
+        CheckBox checkBoxListChild = (CheckBox) convertView.findViewById(R.id.SubListCheck);
 
         txtListChild.setText(childText);
         return convertView;

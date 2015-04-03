@@ -34,7 +34,7 @@ class Json extends AsyncTask<String, Integer, JSONObject> {
     {
         super();
         m_activity = activity;
-        m_prefix = "http://" + prefix + '.';
+        m_prefix = prefix;
     }
 
     @Override
@@ -44,7 +44,7 @@ class Json extends AsyncTask<String, Integer, JSONObject> {
 
     @Override
     protected JSONObject doInBackground(String... urls) {
-        return getJson(m_prefix + urls[0]);
+        return getJson("http://" + m_prefix + '.' + urls[0]);
     }
 
     public static JSONObject getJson(String url){
@@ -113,6 +113,7 @@ class JsonWithNewIntent extends Json {
         m_progressDialog.dismiss();
         if (result != null) {
             m_intent.putExtra("EXTRA_DATA", result.toString());
+            m_intent.putExtra("PREFIX", m_prefix);
             m_activity.startActivity(m_intent);
         }
         else

@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import java.util.HashMap;
@@ -17,10 +18,10 @@ import java.util.List;
 public class ExpandableListAdapter extends BaseExpandableListAdapter {
     private Context m_context;
     private List<String> m_listDataHeader;
-    private HashMap<String, List<String>> m_listDataChild;
+    private HashMap<String, List<List<String>>> m_listDataChild;
 
     public ExpandableListAdapter(Context context, List<String> listDataHeader,
-                                 HashMap<String, List<String>> listChildData) {
+                                 HashMap<String, List<List<String>>> listChildData) {
         this.m_context = context;
         this.m_listDataHeader = listDataHeader;
         this.m_listDataChild = listChildData;
@@ -29,7 +30,7 @@ public class ExpandableListAdapter extends BaseExpandableListAdapter {
     @Override
     public Object getChild(int groupPosition, int childPosititon) {
         return this.m_listDataChild.get(this.m_listDataHeader.get(groupPosition))
-                .get(childPosititon);
+                .get(childPosititon).get(0);
     }
 
     @Override

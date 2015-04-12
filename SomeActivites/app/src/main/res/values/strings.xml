@@ -42,6 +42,8 @@
     <string name="menu_task_search_hint">Введите номер задания</string>
     <string name="menu_variant_search_hint">Введите номер варианта</string>
 
+    <string name="variant_task_answer_hint">Ответ</string>
+
     <string name="action_settings">Settings</string>
     <string name="title_activity_themes">main2</string>
     <string name="title_activity_variant">main3</string>

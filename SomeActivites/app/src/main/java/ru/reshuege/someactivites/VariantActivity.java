@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ExpandableListView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -29,30 +30,31 @@ public class VariantActivity extends ListActivity {
             for (int i = 0; i < len; i++) {
                 values[i] = object.getString(i);
             }
-            TextView[] viewMas = new TextView[len];
+            View[] taskMas = new View[len];
+            LayoutInflater inflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             for (int i = 0; i < len; i++) {
-                viewMas[i] = new TextView(VariantActivity.this);
-                viewMas[i].setText("Загрузка...");
+                taskMas[i] = inflater.inflate(R.layout.variant_task_activity, null);
+                ((TextView)taskMas[i].findViewById(R.id.TaskItem)).setText("Загрузка...");
             }
-            new JsonForTask(VariantActivity.this, "math", values, viewMas).execute("");
-            setListAdapter(new TasksAdapter(this, viewMas));
+            new JsonForTask(VariantActivity.this, "math", values, taskMas).execute("");
+            setListAdapter(new TasksAdapter(this, taskMas));
         }
         catch (JSONException e) {
         }
     }
 
-    class TasksAdapter extends ArrayAdapter<TextView> {
+    class TasksAdapter extends ArrayAdapter<View> {
         private final Context context;
-        private final TextView[] values;
+        private final View[] values;
 
-        public TasksAdapter(Context context, TextView[] values) {
+        public TasksAdapter(Context context, View[] values) {
             super(context, R.layout.variant_activity, values);
             this.context = context;
             this.values = values;
         }
 
         class ViewHolder {
-            public TextView textView;
+            public View view;
         }
 
         @Override
@@ -66,7 +68,7 @@ public class VariantActivity extends ListActivity {
                 rowView = (LinearLayout) inflater.inflate(R.layout.variant_activity, null, true);
                 rowView.addView(values[position]);
                 holder = new ViewHolder();
-                holder.textView = values[position];//(TextView) rowView.findViewById(R.id.task);
+                holder.view = values[position];//(TextView) rowView.findViewById(R.id.task);
                 rowView.setTag(holder);
             }
             else {

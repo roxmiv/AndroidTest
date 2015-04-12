@@ -33,22 +33,25 @@ public class ThemesActivity extends ActionBarActivity {
         setTitle(context.getResources().getIdentifier(m_prefix + "_button_text", "string", context.getPackageName()));
         setContentView(R.layout.activity_themes);
         try {
-            final JSONObject object = (new JSONObject(getIntent().getStringExtra("EXTRA_DATA"))).getJSONObject("data");
+            final JSONArray themes = (new JSONObject(getIntent().getStringExtra("EXTRA_DATA"))).getJSONArray("data");
 
-            JSONArray jsonArray = object.names();
             final List<String> listDataHeader = new ArrayList<String>();
-            final HashMap<String, List<String>> listDataChild = new HashMap<String, List<String>>();
-            if (jsonArray != null) {
-                int len = jsonArray.length();
+            final HashMap<String, List<List<String>>> listDataChild = new HashMap<String, List<List<String>>>();
+            if (themes != null) {
+                int len = themes.length();
                 for (int i=0;i<len;i++){
-                    String subject = jsonArray.get(i).toString();
+                    JSONObject currentTheme = themes.getJSONObject(i);
+                    String subject = currentTheme.getString("name");
                     listDataHeader.add(subject);
-                    JSONArray childArray = object.getJSONObject(subject).names();
+                    JSONArray childArray = currentTheme.getJSONArray("childs");
                     if (childArray != null){
                         int childLen = childArray.length();
-                        ArrayList<String> childrens = new ArrayList<String>();
+                        ArrayList<List<String>> childrens = new ArrayList<List<String>>();
                         for (int j=0; j< childLen; j++) {
-                            childrens.add(childArray.get(j).toString());
+                            List<String> element = new ArrayList<String>();
+                            element.add(childArray.getJSONObject(j).getString("name"));
+                            element.add(childArray.getJSONObject(j).getString("id"));
+                            childrens.add(element);
                         }
                         listDataChild.put(listDataHeader.get(i), childrens);
                     }
@@ -63,8 +66,7 @@ public class ThemesActivity extends ActionBarActivity {
                 public boolean onChildClick(ExpandableListView parent, View v,
                                             int groupPosition, int childPosition, long id) {
                     try {
-                        String themeId = object.getJSONObject(listDataHeader.get(groupPosition))
-                                .getString(listDataChild.get(listDataHeader.get(groupPosition)).get(childPosition));
+                        String themeId = listDataChild.get(listDataHeader.get(groupPosition)).get(childPosition).get(1);
 
                         Intent intent = new Intent(getApplicationContext(), VariantActivity.class);
                         new JsonWithNewIntent(ThemesActivity.this, m_prefix, intent).execute("reshuege.ru/api?type=get_theme_tasks&data=" + themeId);

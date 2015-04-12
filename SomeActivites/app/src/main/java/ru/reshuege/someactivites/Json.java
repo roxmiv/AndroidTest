@@ -8,7 +8,9 @@ import android.os.AsyncTask;
 import android.text.Html;
 import android.text.Spanned;
 import android.util.Log;
+import android.view.View;
 import android.webkit.WebView;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -126,10 +128,10 @@ class JsonWithNewIntent extends Json {
 
 class JsonForTask extends Json {
     String[] m_taskNumbers;
-    TextView[] m_webView;
+    View[] m_webView;
     Spanned[] m_mas = new Spanned[1];
 
-    public JsonForTask (Activity activity, String prefix, String[] taskNumbers, TextView[] webView)
+    public JsonForTask (Activity activity, String prefix, String[] taskNumbers, View[] webView)
     {
         super(activity, prefix);
         m_taskNumbers = taskNumbers;
@@ -155,17 +157,23 @@ class JsonForTask extends Json {
             }
         };
         int taskNumber = m_taskNumbers.length;
+        int status;
         for (int i = 0; i < taskNumber; i++) {
             JSONObject result = getJson("http://math.reshuege.ru/api?type=get_task&data=" + m_taskNumbers[i]);
             try {
-                if (result != null)
+                if (result != null) {
                     m_mas[0] = Html.fromHtml("<html><body>" + result.getJSONObject("data").getString("body") + "</body></html>", imgGetter, null);
-                else
+                    status = 1;
+                }
+                else {
                     m_mas[0] = Html.fromHtml("<html><body>Ошибка</body></html>");
+                    status = 0;
+                }
             } catch (JSONException e) {
                 m_mas[0] = Html.fromHtml("<html><body>Ошибка</body></html>");
+                status = 0;
             }
-            publishProgress(i);
+            publishProgress(i, status);
         }
         return new JSONObject();
     }
@@ -174,7 +182,9 @@ class JsonForTask extends Json {
     protected void onProgressUpdate(Integer... values) {
         super.onProgressUpdate(values);
         Log.d("mylog", "Put text");
-        m_webView[values[0]].setText(m_mas[0]);
+        ((TextView)m_webView[values[0]].findViewById(R.id.TaskItem)).setText(m_mas[0]);
+        if (values[1] == 1)
+            m_webView[values[0]].findViewById(R.id.TaskAnswer).setVisibility(View.VISIBLE);
     }
 
     @Override

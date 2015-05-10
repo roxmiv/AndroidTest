@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.LinearInterpolator;
 import android.widget.Button;
+import android.widget.EditText;
 
 
 public class MainMenuActivity extends ActionBarActivity {
@@ -124,6 +125,17 @@ public class MainMenuActivity extends ActionBarActivity {
                     m_taskHidden = false;
                     m_taskAnimator.reverse();
                 }
+            }
+        });
+
+        Button varianSearchButton = (Button) findViewById(R.id.menu_variant_search);
+        varianSearchButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View arg0) {
+                EditText variantEditText = (EditText) findViewById(R.id.menu_variant_edit);
+                String variantNumber = variantEditText.getText().toString();
+                Intent intent = new Intent(getApplicationContext(), VariantActivity.class);
+                new JsonWithNewIntent(MainMenuActivity.this, m_prefix, intent).execute("reshuege.ru/api?type=get_theme_tasks&data=" + variantNumber);
             }
         });
     }
